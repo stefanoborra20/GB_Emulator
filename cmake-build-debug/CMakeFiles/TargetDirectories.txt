@@ -1,0 +1,3 @@
+C:/Users/stefano/CLionProjects/gbEMU/cmake-build-debug/CMakeFiles/gbEMU.dir
+C:/Users/stefano/CLionProjects/gbEMU/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/stefano/CLionProjects/gbEMU/cmake-build-debug/CMakeFiles/rebuild_cache.dir
