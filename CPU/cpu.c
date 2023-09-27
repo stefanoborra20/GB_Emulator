@@ -10,11 +10,11 @@
 #define get_DE() ((cpu.regs.d << 8) | cpu.regs.e)
 #define get_AF() ((cpu.regs.a << 8) | cpu.regs.f)
 
-// complete this
-#define set_Z()
-#define set_N()
-#define set_H()
-#define set_C()
+// not sure if it works
+#define set_Z(val) cpu.regs.f = ((cpu.regs.f & 1 << 0x7F) | ((val) << 7)
+#define set_N(val) cpu.regs.f = ((cpu.regs.f & 1 << 0xBF) | ((val) << 6)
+#define set_H(val) cpu.regs.f = ((cpu.regs.f & 1 << 0xDF) | ((val) << 5)
+#define set_C(val) cpu.regs.f = ((cpu.regs.f & 1 << 0xEF) | ((val) << 4)
 
 static CPU cpu;
 
