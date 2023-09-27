@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "../BUS/bus.h"
+
 typedef struct
 {
     uint8_t h;
@@ -26,17 +28,12 @@ typedef struct
 {
     Registers regs;
 
-    // fetch
-    uint16_t fetch;
-    uint16_t address_dest;
-    uint8_t opcode;
-
     bool is_halted;
-    unsigned int cycles;
+    unsigned int ticks;
 } CPU;
 
-void cpu_init(CPU*);
+void cpu_init();
 
-bool cpu_cycle(CPU*);
+bool cpu_cycle();
 
 #endif

@@ -2,17 +2,21 @@
 #include "CPU/cpu.h"
 #include  "CART/cartridge.h"
 
+#define ROM_PATH "C:\\Users\\stefano\\Desktop\\GameBoy Programs\\ROMs\\Super Mario Land.gb"
 
 int main()
 {
-    CPU cpu;
-    Rom rom = { 0 };
-
-    // sostituisci questo con una finestra per selezionare il file (windows.h library ???)
-    if (load_rom("INSERISCI ROM PATH", &rom) == false)
+    if (load_rom(ROM_PATH) == false)
         printf("Cartridge loading error");
 
+    cpu_init();
 
+    while ( 1 )
+    {
+        if (!cpu_cycle())
+            break;
+
+    }
 
     return 0;
 }

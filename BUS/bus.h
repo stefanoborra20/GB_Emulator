@@ -4,8 +4,16 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-bool write_bus(uint16_t address, uint8_t byte);
+#include "../CART/cartridge.h"
+
+#define NOT_IMPL { printf("NOT IMPLEMENTED"); }
 
 uint8_t read_bus(uint16_t address);
+
+void write_bus(uint16_t address, uint8_t data);
+
+uint16_t read16_bus(uint16_t address);
+
+void write16_bus(uint16_t address, uint16_t data);
 
 #endif
