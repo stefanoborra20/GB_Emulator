@@ -76,7 +76,7 @@ bool cpu_cycle()
         break;
 
         case 0x04: /* INC B */
-            cpu.regs.b = +1;
+            cpu.regs.b++;
             set_Z(!cpu.regs.b); // if value is = 0 -> set flag to 1
             set_N(0);
             set_H((cpu.regs.b & 0xF) == 0);
@@ -121,12 +121,48 @@ bool cpu_cycle()
             set_HL(auxi & 0xFFFF)
         break;
 
-        case 0xA: /* LD A, (BC) */
-
-
-
+        case 0x0A: /* LD A, (BC) */
+            cpu.ticks++;
+            cpu.regs.a = read_bus(get_BC());
+            cpu.ticks++;
         break;
 
+        case 0x0B: /* DEC BC */
+            cpu.ticks++;
+            set_BC((get_BC() - 1))
+            cpu.ticks++;
+        break;
+
+        case 0x0C: /* INC C -> maybe create a function INC */
+            cpu.regs.c++;
+            set_Z(!cpu.regs.c);
+            set_N(0);
+            set_H((cpu.regs.c & 0xF) == 0);
+            cpu.ticks++;
+        break;
+
+        case 0x0D: /* DEC C */
+            cpu.regs.c--;
+            set_Z(!cpu.regs.c);
+            set_N(1);
+            set_H((cpu.regs.c & 0xF) == 0xF);
+            cpu.ticks++;
+        break;
+
+        case 0x0E: /* LD C, d8 */
+            cpu.regs.c = read_bus(cpu.regs.pc++);
+            cpu.ticks += 2;
+        break;
+
+        case 0x0F: /* RRCA */
+            aux8 = cpu.regs.a;
+            cpu.regs.a = (cpu.regs.a >> 1) | (aux8 << 7);
+            set_Z(0);
+            set_N(0);
+            set_H(0);
+            set_C(aux8 > 0xFF);
+            cpu.ticks++;
+        break;
 
         default:
             NOT_IMPL
