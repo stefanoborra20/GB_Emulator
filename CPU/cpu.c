@@ -57,13 +57,12 @@ bool cpu_cycle()
         break;
 
         case 0x01: /* LD BC, d16 */
-            fetched_data = read16_bus(cpu.regs.pc);
-            set_BC(fetched_data)
+            set_BC(read16_bus(cpu.regs.pc))
             cpu.regs.pc += 2;
             cpu.ticks += 3;
         break;
 
-        case 0x02: /* LD (BC),A */
+        case 0x02: /* LD (BC), A */
             cpu.ticks++;
             write_bus(get_BC(), cpu.regs.a);
             cpu.ticks++;
@@ -162,6 +161,48 @@ bool cpu_cycle()
             set_H(0);
             set_C(aux8 > 0xFF);
             cpu.ticks++;
+        break;
+
+        case 0x10 /* ??? */:
+        break;
+
+        case 0x11: /* LD DE, d16 */
+            set_DE(read16_bus(cpu.regs.pc))
+            cpu.regs.pc += 2;
+            cpu.ticks += 3;
+        break;
+
+        case 0x12: /* LD (DE), A */
+            cpu.ticks++;
+            write_bus(get_DE(), cpu.regs.a);
+            cpu.ticks++;
+        break;
+
+        case 0x13: /* INC DE */
+            cpu.ticks++;
+            set_BC((get_DE() + 1))
+            cpu.ticks++;
+        break;
+
+        case 0x14: /* INC D */
+            cpu.regs.d++;
+            set_Z(!cpu.regs.d);
+            set_N(0);
+            set_H((cpu.regs.d & 0xF) == 0);
+            cpu.ticks++;
+        break;
+
+        case 0x15: /* DEC D */
+            cpu.regs.d--;
+            set_Z(!cpu.regs.d);
+            set_N(1);
+            set_H((cpu.regs.d & 0xF) == 0xF);
+            cpu.ticks++;
+        break;
+
+        case 0x16: /* LD D, d8 */
+            cpu.regs.d = read_bus(cpu.regs.pc++);
+            cpu.ticks += 2;
         break;
 
         default:

@@ -6,6 +6,8 @@
 
 #include "../BUS/bus.h"
 
+typedef enum {H, L, D, E, B, C, A, F} reg_type;
+
 typedef struct
 {
     uint8_t h;
