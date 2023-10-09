@@ -6,7 +6,7 @@
 
 #include "../BUS/bus.h"
 
-typedef enum {H, L, D, E, B, C, A, F} reg_type;
+typedef enum {H, L, D, E, B, C, A, F, BC, DE, HL, SP} reg_type;
 
 typedef struct
 {
